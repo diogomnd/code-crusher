@@ -86,11 +86,58 @@ def clearAll(board, sym):
 #  Insert your implementations of vLineAt and hLineAt here
 
 def vLineAt(board, r, c):
-    """ for r in range(len(board)):
-        for c in range(len(board[r])):
-            if b
- """
-    return True
+    cont = 0 
+    reference = r
+    for r2 in range(len(board)):
+        if board[r][c] == board[r2][c]:
+            if reference - r2 == 1:
+                cont += 1
+                reference = r2
+                if cont >= 3:
+                    return True
+    
+    cont = 0 
+    reference = r
+    for r2 in range(len(board)):
+        if board[r][c] == board[r2][c]:
+            if reference - r2 == -1:
+                cont += 1
+                reference = r2
+                if cont >= 3:
+                    return True
+    
+    if board[r][c] == board[r - 1][c]:
+        if board[r][c] == board[r + 1][c]:
+            return True
+        
+    return False
+
+def hLineAt(board, r, c):
+    cont = 0 
+    reference = c
+    for c2 in range(len(board)):
+        if board[r][c] == board[r][c2]:
+            if reference - c2 == 1:
+                cont += 1
+                reference = c2
+                if cont >= 3:
+                    return True
+    
+    cont = 0 
+    reference = c
+    for c2 in range(len(board)):
+        if board[r][c] == board[r][c2]:
+            if reference - c2 == -1:
+                cont += 1
+                reference = c2
+                if cont >= 3:
+                    return True
+    
+    if board[r][c] == board[r][c - 1]:
+        if board[r][c] == board[r][c + 1]:
+            return True
+  
+    return False
     
 #
 
@@ -109,11 +156,14 @@ def vLineAt(board, r, c):
 
 def canSwap(board, r1, c1, r2, c2):
     swap(board, r1, c1, r2, c2)
-    for row in range(len(board)):
-        for col in range(len(board[row])):
-            if row == r1 or col == c1:
-                return False
-    return True
+
+    if (hLineAt(board, r1, c1) or hLineAt(board, r2, c2)
+            or vLineAt(board, r1, c1) or vLineAt(board, r2, c2)):
+        swap(board, r1, c1, r2, c2)
+        return True
+    else:
+        swap(board, r1, c1, r2, c2)
+        return False
 
 #
 #  Identify two adjacent positions on the board that can be swapped to 
