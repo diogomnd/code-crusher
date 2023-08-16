@@ -42,13 +42,14 @@ LOSE = -1
 def createBoard(rows, cols, syms):
     board = []
 
-    for row in range(rows):
+    for r in range(rows):
         board.append([])
-        for col in range(cols):
-            interval = randrange(0, syms)
-            board[row].append(interval)
+        for c in range(cols):
+            value = randrange(0, syms)
+            board[r].append(value)
 
     return board
+
 
 #
 #  Modify the board by swapping two pieces.
@@ -78,40 +79,47 @@ def swap(board, r1, c1, r2, c2):
 #
 
 def clearAll(board, sym):
-    for row in range(len(board)):
-        for col in range(len(board[row])):
-            if board[row][col] == sym:
-                board[row][col] = EMPTY
+    for r in range(len(board)):
+        for c, value in enumerate(board[r]):
+            if value == sym:
+                board[r][c] = EMPTY
 
 #
 #  Insert your implementations of vLineAt and hLineAt here
 
 def vLineAt(board, row, col):
     element = board[row][col]
-
+    
+    # Check the top position
     if (0 <= row + 2 < len(board) 
-            and board[row + 1][col] == element and board[row + 2][col] == element):
+            and board[row + 1][col] == board[row + 2][col] == element):
         return True
+    # Check the middle one
     if (0 <= row - 1 and row + 1 < len(board)
-            and board[row - 1][col] == element and board[row + 1][col] == element):
+            and board[row - 1][col] == board[row + 1][col] == element):
         return True
-    if (0<= row - 2 
-            and board[row - 1][col] == element and board[row - 2][col] == element):
+    # Check the bottom one
+    if (0 <= row - 2 
+            and board[row - 1][col] == board[row - 2][col] == element):
         return True
     
     return False
-        
+
+
 def hLineAt(board, row, col):
     element = board[row][col]
-
+    
+    # Check the top position
     if (col + 2 < len(board[row])
-            and board[row][col + 1] == element and board[row][col + 2] == element):
+            and board[row][col + 1] == board[row][col + 2] == element):
         return True
+    # Check the middle one
     if (0 <= col - 1 and col + 1 < len(board[row])
-            and board[row][col - 1] == element and board[row][col + 1] == element):
+            and board[row][col - 1] == board[row][col + 1] == element):
         return True
-    if (0 <= col - 2 
-            and board[row][col - 1] == element and board[row][col - 2] == element):
+    # Check the bottom one
+    if (0 <= col - 2
+            and board[row][col - 1] == board[row][col - 2] == element):
         return True
     
     return False
