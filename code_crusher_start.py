@@ -42,11 +42,11 @@ LOSE = -1
 def createBoard(rows, cols, syms):
     board = []
 
-    for r in range(rows):
+    for row in range(rows):
         board.append([])
-        for c in range(cols):
+        for col in range(cols):
             value = randrange(0, syms)
-            board[r].append(value)
+            board[row].append(value)
 
     return board
 
@@ -79,10 +79,10 @@ def swap(board, r1, c1, r2, c2):
 #
 
 def clearAll(board, sym):
-    for r in range(len(board)):
-        for c, value in enumerate(board[r]):
+    for row in range(len(board)):
+        for col, value in enumerate(board[row]):
             if value == sym:
-                board[r][c] = EMPTY
+                board[row][col] = EMPTY
 
 #
 #  Insert your implementations of vLineAt and hLineAt here
